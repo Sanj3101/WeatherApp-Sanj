@@ -9,6 +9,7 @@ const WeatherCard = ({city }) => {
   const API_KEY = '56d1432d68a92e224392caaa6d2dc963';
 
   const fetchWeather = async (cityName) => {
+    setLoading(true);
     try {
       const [weatherRes, forecastRes] = await Promise.all([
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${API_KEY}`),
@@ -24,6 +25,8 @@ const WeatherCard = ({city }) => {
       setforecastInfo(daily);
     } catch (error) {
       console.error('Error fetching weather:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,7 +34,14 @@ const WeatherCard = ({city }) => {
     fetchWeather(city);
   }, [city]);
 
+  if (loading) {
+    return <p className="text-center mt-6 text-gray-100">Loading weather data...</p>;
+  }
+
   if (!weatherInfo || weatherInfo.cod !== 200) {
+    if (weatherInfo==null){
+      return <p className="text-center mt-6 text-gray-100">Enter a valid city name to check the weather !</p>
+    }
     return <p className="text-center mt-6 text-gray-100">No data found for "{city}"</p>;
   }
 
@@ -53,7 +63,7 @@ const WeatherCard = ({city }) => {
 
         <div className="flex items-center justify-between gap-2">
             <span className="material-symbols-outlined cursor-pointer text-black dark:text-white" >air</span>
-            <p>Wind Speed : {speed}%</p>            
+            <p>Wind Speed : {speed} km/h</p>            
         </div>
       </div>
       </div>

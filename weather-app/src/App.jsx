@@ -8,15 +8,23 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDark = () => {
-    document.body.classList.toggle('dark-mode');
-    setDarkMode(!darkMode);
-  }
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    document.body.classList.toggle('dark-mode', newMode);
+    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+  };
+  
   useEffect(() => {
     const storedCity = localStorage.getItem('lastCity');
     const storedHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    const storedTheme = localStorage.getItem('theme');
 
     if (storedCity) setCity(storedCity);
     if (storedHistory) setHistory(storedHistory);
+    if (storedTheme === 'dark') {
+      setDarkMode(true);
+      document.body.classList.add('dark-mode');
+    }
   }, []);
 
   const handleSearch = (newCity) => {
