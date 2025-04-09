@@ -31,21 +31,22 @@ const WeatherCard = ({city }) => {
   };
 
   useEffect(() => {
-    fetchWeather(city);
+    if (city) {
+      fetchWeather(city);
+    }
   }, [city]);
+  
 
   if (loading) {
-    return <p className="text-center mt-6 text-gray-100">Loading weather data...</p>;
+    return <p className="text-center mt-6 dark:text-gray-100 text-neutral900">Loading weather data...</p>;
   }
 
   if (!weatherInfo || weatherInfo.cod !== 200) {
-    if (weatherInfo==null){
-      return <p className="text-center mt-6 text-gray-100">Enter a valid city name to check the weather !</p>
-    }
-    return <p className="text-center mt-6 text-gray-100">No data found for "{city}"</p>;
+    
+    return <p className="text-center mt-6 dark:text-gray-100 text-black">No data found for "{city}"</p>;
   }
 
-  const {name, weather, main: { temp, humidity }, wind: { speed },} = weatherInfo;
+  const {name, weather, main: { temp, humidity, temp_min, temp_max, feels_like }, wind: { speed },} = weatherInfo;
 
   return (
     <div className='flex flex-col lg:grid lg:grid-cols-2 items-center p-10'>
@@ -54,10 +55,18 @@ const WeatherCard = ({city }) => {
                     dark:bg-gradient-to-t dark:from-neutral-600 dark:via-neutral-700 dark:to-neutral-800  dark:text-white shadow-xl rounded-xl ">
         {/* current day weather */}
       <h2 className="font-semibold text-2xl mb-2">{name}</h2>
+      <div className="w-full flex items-center justify-evenly">
       <div className='flex flex-col items-center transition-all duration-300 hover:scale-105 ease-in'>
       <img src={`https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`} alt="Weather Icon" className="w-20 h-20 shadow-lg rounded-full "/>
       <p className="text-lg mt-2 mb-4">{weather[0].description}</p>
       <p className="text-4xl font-bold mb-2">{Math.round(temp)}°C</p>
+      </div>
+      <div className="flex flex-col items-end transition-all duration-300 hover:scale-105 ease-in">
+        <p className="text-sm mt-1"> {weather[0].main} </p>
+        <p className="text-sm mt-1">feels like : {Math.round(feels_like)}°C</p>
+        <p className="text-sm mt-2">max : {Math.round(temp_max)}°C</p>
+        <p className="text-sm mt-2">min : {Math.round(temp_min)}°C</p>
+      </div>
       </div>
       <div className="flex items-center justify-between gap-8 text-sm mt-4">
         <div className="flex items-center justify-between gap-2 transition-all duration-300 hover:scale-105 ease-in shadow-xl rounded-xl">

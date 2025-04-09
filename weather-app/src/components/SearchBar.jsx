@@ -16,12 +16,12 @@ const SearchBar = ({ onSearch, history }) => {
         <h2 className="font-bold text-xl text-white">Weather App</h2>
       </div> */}
       <div className="flex items-center gap-2 w-full max-w-md mx-auto">
-        <input type="text" className=" rounded-full w-full px-2 py-1 text-center shadow-md opacity-50 hover:opacity-90 transition-all duration-300 " placeholder="Enter city..." value={input}
+        <input type="text" className=" dark:bg-neutral-100 bg-neutral-900 rounded-full w-full px-2 py-1 text-center shadow-md opacity-50 hover:opacity-90 transition-all duration-300 " placeholder="Enter city..." value={input}
           //event handling for search city and press enter
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
         />
-        <span className="material-symbols-outlined cursor-pointer text-white transition-all duration-300 hover:scale-110" onClick={handleSearch}>search</span>
+        <span className="material-symbols-outlined cursor-pointer dark:text-white text-black transition-all duration-300 hover:scale-110" onClick={handleSearch}>search</span>
       </div>
 
       {history?.length > 0 && (

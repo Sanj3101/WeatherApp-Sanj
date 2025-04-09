@@ -40,7 +40,7 @@ function App() {
     <div className={`${darkMode && "dark"}`}>
     <div className="min-h-screen w-full flex flex-col items-center lg:justify-center opacity-75">
       <div className="flex flex-col gap-2 items-center mt-10">
-        <span className="material-symbols-outlined cursor-pointer text-white transition-all duration-300 hover:scale-150 ease-in-out" onClick={toggleDark}>{darkMode ? "sunny" : "bedtime" }</span>
+        <span className="material-symbols-outlined cursor-pointer dark:text-white text-neutral-900 transition-all duration-300 hover:scale-150 ease-in-out" onClick={toggleDark}>{darkMode ? "sunny" : "bedtime" }</span>
         <SearchBar onSearch={handleSearch} history={history} />
         <WeatherCard city={city} />
       </div>
