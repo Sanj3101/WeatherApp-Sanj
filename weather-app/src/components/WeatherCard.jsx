@@ -49,19 +49,23 @@ const WeatherCard = ({city }) => {
 
   return (
     <div className='flex flex-col lg:grid lg:grid-cols-2 items-center p-10'>
-    <div className="w-full h-[100%] max-w-md p-6 mt-4 flex flex-col justify-center items-center font-poppins bg-yellow-100 text-black dark:bg-neutral-800  dark:text-white shadow-xl rounded-xl">
+    <div className="w-full h-[100%] max-w-md p-6 mt-4 flex flex-col justify-center items-center font-poppins 
+                    bg-gradient-to-t from-yellow-100 via-yellow-200 to-yellow-400 text-black 
+                    dark:bg-gradient-to-t dark:from-neutral-600 dark:via-neutral-700 dark:to-neutral-800  dark:text-white shadow-xl rounded-xl ">
         {/* current day weather */}
       <h2 className="font-semibold text-2xl mb-2">{name}</h2>
-      <img src={`https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`} alt="Weather Icon" className="w-20 h-20"/>
+      <div className='flex flex-col items-center transition-all duration-300 hover:scale-105 ease-in'>
+      <img src={`https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`} alt="Weather Icon" className="w-20 h-20 shadow-lg rounded-full "/>
       <p className="text-lg mt-2 mb-4">{weather[0].description}</p>
       <p className="text-4xl font-bold mb-2">{Math.round(temp)}°C</p>
+      </div>
       <div className="flex items-center justify-between gap-8 text-sm mt-4">
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-2 transition-all duration-300 hover:scale-105 ease-in shadow-xl rounded-xl">
             <span className="material-symbols-outlined cursor-pointer text-black dark:text-white" >water_drop</span>
             <p>Humidity : {humidity}%</p>            
         </div>
 
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-2 transition-all duration-300 hover:scale-105 ease-in shadow-xl rounded-xl">
             <span className="material-symbols-outlined cursor-pointer text-black dark:text-white" >air</span>
             <p>Wind Speed : {speed} km/h</p>            
         </div>
@@ -69,14 +73,16 @@ const WeatherCard = ({city }) => {
       </div>
 
 {/* 5 day  */}
-<div className="w-full h-[100%] p-6 mt-4 flex flex-col justify-between items-center font-poppins bg-yellow-100 text-black dark:bg-neutral-800  dark:text-white shadow-xl rounded-xl">
+<div className="w-full h-[100%] p-6 mt-4 flex flex-col justify-between items-center font-poppins 
+                bg-gradient-to-t from-yellow-300 via-yellow-200 to-yellow-00 text-black 
+                dark:bg-gradient-to-t dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800  dark:text-white shadow-xl rounded-xl ">
     <h3 className="text-xl font-semibold mt-6 mb-2">5-Day Forecast</h3>
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-5 text-center">
         {forecastInfo.map((day, index) => (
-          <div key={index} className=" flex sm:flex-col gap-2 items-center justify-between bg-yellow-400 dark:bg-neutral-700 rounded-lg p-4">
+          <div key={index} className=" flex sm:flex-col gap-2 items-center justify-between bg-yellow-500 dark:bg-neutral-800 rounded-lg p-4 transition-all duration-300 hover:scale-105 ease-in shadow-md">
             <p className="font-medium">{new Date(day.dt_txt).toLocaleDateString('en-US', { weekday: 'short' })}</p>
             <img src={`https://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt="Weather" className="w-12 h-12 mx-auto"/>
-            <p>{Math.round(day.main.temp)}°C</p>
+            <p>{Math.round(day.main.temp)}°</p>
             <p className="text-sm">{day.weather[0].main}</p>
           </div>
         ))}
